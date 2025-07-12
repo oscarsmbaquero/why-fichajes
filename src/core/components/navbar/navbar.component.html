@@ -1,0 +1,120 @@
+<!-- style="background-color: rgb(20, 20, 20)" -->
+<nav
+  class="navbar navbar-expand-md sticky-top"
+  style="background-color: transparent"
+>
+  <div class="container-fluid padding:10px">
+    <!-- <a class="navbar-brand" href="#">
+      &nbsp;<span class="text-info">ZSS</span>&nbsp;<span
+        class="text-danger text-info"
+        >IA</span
+      >
+    </a> -->
+    <img src="../../../assets/images/why.png" width="80px"/>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      style="border: none; background: transparent"
+    >
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <path
+          class="line line-top-bottom"
+          d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+        ></path>
+        <path class="line" d="M7 16 27 16"></path>
+      </svg>
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+      style="background-color: white"
+    >
+      <div class="offcanvas-header">
+        <img src="../../../assets/images/why.png" width="100px"/>
+        <button
+          style="color: white; top: 0;"
+          type="button"
+          class="btn-close custom-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!--primera lista-->
+      <div class="offcanvas-body">
+        <ul class="navbar-nav mx-auto my-2 my-lg-0" style="padding: 15px">
+          @if(activeUser){
+            <li
+            class="nav-item"
+            (click)="selectOption('fichaje')"
+            [class.selected]="selectedOption === 'fichaje'"
+          >
+            <a
+              class="nav-link"
+              [routerLink]="['fichaje']"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+              data-bs-dismiss="offcanvas"
+            >
+              <span>FICHAJE</span>
+            </a>
+          </li>
+        
+          <hr class="dropdown-divider" />                   
+            <li
+              (click)="selectOption('menu')"
+              [class.selected]="selectedOption === 'menu'"
+              class="nav-item"
+              routerLinkActive="active"
+            >
+              <a
+                class="nav-link"
+                [routerLink]="['/menu']"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+                data-bs-dismiss="offcanvas"
+              >
+                <span>MENU</span>
+              </a>
+            </li>
+            <hr class="dropdown-divider" />
+          }
+          
+        </ul>
+        <ul class="navbar-nav ml-auto my-2 my-lg-0" style="padding: 15px">
+          @if(!activeUser){
+          <li class="nav-item" routerLinkActive="active">
+            <a
+              class="nav-link"
+              [routerLink]="['/login']"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+              data-bs-dismiss="offcanvas"
+              ><span>Acceder</span><img src="../../../assets/images/emtrar.jpg" width="38px"/>
+            </a>
+          </li>
+          } @else {
+            <li class="nav-item"  style="text-align: center;" routerLinkActive="active" >
+              <a
+                class="nav-link"
+                routerLink="/logout"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+                data-bs-dismiss="offcanvas"
+                (click)="logout()"
+              ><span>Salir</span><img src="../../../assets/images/salir.webp" width="38px"/>                
+              </a>
+            </li>
+          }
+          <!-- <li class="d-block d-md-none" style="text-align: center;"><img src="https://res.cloudinary.com/dcfk8yjwr/image/upload/v1742888828/zss/fondo_blanco_enzshe.png" width="250px"/></li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

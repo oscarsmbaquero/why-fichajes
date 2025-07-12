@@ -1,0 +1,34 @@
+{
+  "NAVBAR":{
+    "HOME": "Inicio",
+    "NOSOTROS": "Sobre nosotros",
+    "SERVICIOS": "Servicios",
+    "CONTACTO": "Contacto"
+  },
+  "NOSOTROS":{
+    "TITLE-PRIMERA-CARD": "Bienvenidos a D3 little-details",
+    "DESCRIPTION-PRIMERA-CARD": "Proveemos little-details especializado para rodajes y eventos particulares.",
+    "TITLE-SEGUNDA-CARD": "En D3 ofrecemos:",
+    "LISTADO-SEGUNDA-CARD-FIRST": "Productos de Calidad",
+    "LISTADO-SEGUNDA-CARD-SECOND": "Atención personalizada",
+    "LISTADO-SEGUNDA-CARD-THIRD": "Calidad humana",
+    "LISTADO-SEGUNDA-CARD-FOUR": "Equilibrio entre fogones",
+    "LISTADO-SEGUNDA-CARD-FIVE": "Desayunos en vivo",
+    "TEXTO-ULTIMA-CARD":"CUÉNTANOS TU EVENTO Y TE DAREMOS LA MEJOR SOLUCIÓN"
+  },
+  "HOME":{
+    "PRIMERA-CARD-TITLE": "CINE",
+    "SEGUNDA-CARD-TITLE": "EVENTOS"
+  },
+  "MODAL":{
+    "TITLE": "Configuración",
+    "TEXT": "Selecciona tu idioma"
+  },
+  "CONTACTO":{
+    "NOMBRE": "Nombre*",
+    "MAIL": "Mail*",
+    "TELEFONO": "Teléfono",
+    "TEXT-AREA": "Explícanos detalladamente tu evento*"
+  }
+
+  }

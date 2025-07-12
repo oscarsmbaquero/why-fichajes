@@ -1,0 +1,81 @@
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="form-group text-center">
+        <div class="form-group">
+          <select
+            id="miSelect"
+            class="form-control input"
+            [(ngModel)]="opcionSeleccionada"
+            name="miSelect"
+            (change)="onSelectChange($event)"
+          >
+            <!-- Placeholder -->
+            <option value="" disabled selected>
+              -- Selecciona un trabajador --
+            </option>
+
+            <!-- Opciones dinámicas -->
+            @for (opcion of opciones; track opcion.idUsuario) {
+            <option [value]="opcion.idUsuario">{{ opcion.user }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aquí puedes mostrar la tabla si hay opción seleccionada -->
+  @if(opcionSeleccionada){
+  <div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-10">
+      <div class="container my-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10">
+            <div class="table-responsive">
+              <table
+                class="table table-bordered table-striped align-middle text-center"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th>Día</th>
+                    <th>Hora Entrada</th>
+                    <th>Ubicación</th>
+                    <th>Hora Salida</th>
+                    <th>Horas</th>
+                    <th>Ubicación</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (registro of registros; track registro._id) {
+                  <tr>
+                    <td>{{ registro.dia }}</td>
+                    <td>{{ registro.entrada.hora }}</td>
+                    <td>
+                      @if (registro.localidadEntradaVisible) {
+                      {{ registro.localidadEntrada || "Cargando..." }}
+                      } @else {
+                      <img  (click)="mostrarLocalidad(registro, 'entrada')"  src="../../../../assets/images/ubicacion.jpg" width="35px"/>
+                      }
+                    </td>
+                    <td>{{ registro.salida.hora }}</td>
+                    <td>{{ registro.tiempoTrabajado }}</td>
+                     <td>
+                      @if (registro.localidadSalidaVisible) {
+                      {{ registro.localidadSalida || "Cargando..." }}
+                      } @else {
+                        <img  (click)="mostrarLocalidad(registro, 'salida')" src="../../../../assets/images/ubicacion.jpg" width="35px"/>
+                      }
+                    </td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

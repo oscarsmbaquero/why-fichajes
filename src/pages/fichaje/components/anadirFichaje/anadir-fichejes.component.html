@@ -1,0 +1,56 @@
+<div class="container-fluid fichaje-container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h3 class="mb-4">{{ user }}</h3>
+          <h4>{{ tienda }}</h4>
+          <h6>{{ relojCard }}</h6>
+          <div class="clock">
+            <div class="hand hour" [style.transform]="hourTransform"></div>
+            <div class="hand minute" [style.transform]="minuteTransform"></div>
+            <div class="hand second" [style.transform]="secondTransform"></div>
+            <div class="center-circle"></div>
+            <div class="number number-12">12</div>
+            <div class="number number-3">3</div>
+            <div class="number number-6">6</div>
+            <div class="number number-9">9</div>
+          </div>
+          <div class="d-grid gap-4">
+            @if(fichajeRegistradoOk){<p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">REGISTRADO OK</p-message>}
+            @if(!existeFichajeHoy){
+            <p-button
+              label="Fichar entrada"
+              severity="success"
+              (click)="ficharEntrada()"
+            ></p-button>
+            } @if (existeFichajeHoy) {
+              <p-button
+              [disabled]="true"
+              label="Hora entrada: {{horaEntrada}}"
+              severity="success"
+              (click)="ficharEntrada()"
+            ></p-button>
+
+            <!-- <p class="text-muted">
+              Hora de entrada: <strong>{{ horaEntrada }}</strong>
+            </p> -->
+            }
+            <p-button
+               [pTooltip]="!fichajeSalidaOk ? 'No hay registro de entrada' : ''"
+              [disabled]="!fichajeSalidaOk"              
+              [label]="horaSalida ? 'Hora de salida: ' + horaSalida : 'Fichar salida'"
+              severity="info"
+              (click)="ficharSalida()"
+            ></p-button>
+            <!-- @if (horaSalida) {
+            <p class="text-muted">
+              Hora de salida: <strong>{{ horaSalida }}</strong>
+            </p>
+            } -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

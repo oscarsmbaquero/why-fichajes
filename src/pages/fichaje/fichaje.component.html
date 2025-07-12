@@ -1,0 +1,24 @@
+<div class="">
+  <div class="tabs">
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 0" 
+      (click)="activeTab = 0">
+      Fichar
+    </button>
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 1" 
+      (click)="activeTab = 1">
+      Registro
+    </button>
+  </div>
+
+  <div class="tab-content">
+    @if (activeTab === 0) {
+      <app-anadir-fichejes></app-anadir-fichejes>
+    } @else if (activeTab === 1) {
+      <app-listado-fichajes-user></app-listado-fichajes-user>
+    }
+  </div>
+</div>

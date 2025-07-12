@@ -1,0 +1,53 @@
+.conta {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-link:hover .card {
+  transform: scale(1.05);
+}
+
+.card {
+  /* justify-content: flex-start;  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  /* background-color: #fff; */
+  transition: transform 0.2s;
+  padding: 8px;
+  font-family: "Poppins", sans-serif;  
+}
+
+.card-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-text {
+  color: black;
+  /* font-family: "Oswald", sans-serif; */
+  font-size: 24px;
+  margin: 0;
+}
