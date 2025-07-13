@@ -20,13 +20,13 @@
 }
 
 .tab-button.active {
-  color: cadetblue;
+  color:  #40E0D0;
   font-weight: bold;
-  border-bottom: 3px solid  cadetblue;
+  border-bottom: 3px solid   #40E0D0;
 }
 
 .tab-button:hover {
-  color: cadetblue;
+  color:  #40E0D0 ;
 }
 
 .tab-content {

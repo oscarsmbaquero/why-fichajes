@@ -14,12 +14,7 @@ th, td {
   border: 1px solid #ccc;
   padding: 8px 10px;
   text-align: center;  
-}
-th {
-  color: white
-}
-td {
-  color: black ;
+    color: black ;
 }
 
 /* td:nth-child(1),
@@ -40,7 +35,7 @@ th:nth-child(1),
 th:nth-child(2),
 th:nth-child(3),
 th:nth-child(4){
-  background-color:  rgb(7, 146, 14);
+  background-color: #40E0D0
 }
 
 

@@ -3,12 +3,11 @@ import { FichajeDiario } from '../../../../core/models/fichaje-models';
 import { FichajesService } from '../../../../core/services/fichajes/fichajes.service';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-anadir-fichejes',
   standalone: true,
-  imports: [ButtonModule, MessageModule, TooltipModule],
+  imports: [ButtonModule, MessageModule],
   templateUrl: './anadir-fichejes.component.html',
   styleUrl: './anadir-fichejes.component.css',
 })
@@ -25,7 +24,7 @@ export class AnadirFichejesComponent {
   tienda!: string;
   idUsuario!: number;
   relojCard: any;
-  disabledSalidaFichaje = true;
+  disabledSalidaFichaje = false;
   fichajeSalidaOk = false;
   registro: FichajeDiario = {
     idUsuario: 0,
@@ -81,12 +80,13 @@ export class AnadirFichejesComponent {
               this.fichajeRegistradoOk = false;
             }, 2500);
           });
-        this.existeFichajeHoy = true;
-        this.fichajeSalidaOk = true;
       })
       .catch((error) => {
         console.error('Error al obtener la ubicación para entrada:', error);
       });
+      setTimeout(() => {
+        this.obtenerFichajesByUserAndDay();        
+      }, 2500);
   }
 
   ficharSalida(): void {
@@ -104,16 +104,18 @@ export class AnadirFichejesComponent {
             console.log('Fichaje de salida registrado:', response);
           });
         this.fichajeRegistradoOk = true;
-        this.obtenerFichajesByUserAndDay();
-            setTimeout(() => {
-              this.fichajeRegistradoOk = false;
-            }, 2500);
-            this.fichajeSalidaOk = false;
-      })
-      .catch((error) => {
-        console.error('Error al obtener la ubicación para entrada:', error);
-      });
-  }
+        this.disabledSalidaFichaje = true
+        setTimeout(() => {
+            this.fichajeRegistradoOk = false;
+          }, 2500);
+        })
+        .catch((error) => {
+          console.error('Error al obtener la ubicación para entrada:', error);
+        });
+        setTimeout(() => {
+          this.obtenerFichajesByUserAndDay();          
+        }, 2500);
+      }
 
   private actualizarReloj(): void {
     const ahora = new Date();
@@ -154,19 +156,30 @@ export class AnadirFichejesComponent {
   }
 
   obtenerFichajesByUserAndDay() {
+    console.log('vuelvo a comprobar');
+    
     this.fichajesService.getFichajesByUserAndDay(this.idUsuario, new Date().toISOString().split('T')[0]).subscribe(
       (response: any[]) => {
         this.existeFichajeHoy = response.length > 0;
         if (this.existeFichajeHoy) {
+          console.log('hay fichaje hoy', response);
+          
           const horaFichajeEntrada = response[0].entrada.hora;
           this.horaEntrada = horaFichajeEntrada;
+          console.log(this.horaEntrada);
+          
           this.disabledSalidaFichaje = false
           const horaFichajeSalida = response[0].salida.hora;
           if (horaFichajeSalida) {
             this.horaSalida = horaFichajeSalida;
+            this.fichajeSalidaOk = false;
+            this.disabledSalidaFichaje = true;
           } else {
             this.horaSalida = null;
           }
+        }else{
+          console.log('no hay fichaje hoy');          
+          this.disabledSalidaFichaje = true;
         }
       },
       (error) => {
