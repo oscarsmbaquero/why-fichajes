@@ -88,3 +88,9 @@
   left: 10px;
 }
 
+.input{
+    background-color: #555 !important;
+    color: white;
+    margin-bottom: 50px;
+
+}

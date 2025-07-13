@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { FichajeDiario } from '../../../../core/models/fichaje-models';
 import { FichajesService } from '../../../../core/services/fichajes/fichajes.service';
+import { ProjectsService } from '../../../../core/services/projects/projects.service';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-anadir-fichejes',
   standalone: true,
-  imports: [ButtonModule, MessageModule],
+  imports: [ButtonModule, MessageModule, FormsModule],
   templateUrl: './anadir-fichejes.component.html',
   styleUrl: './anadir-fichejes.component.css',
 })
@@ -21,7 +23,7 @@ export class AnadirFichejesComponent {
   fichajeRegistradoOk = false;
   private intervalId: any;
   user: any;
-  tienda!: string;
+  departamento!: string;
   idUsuario!: number;
   relojCard: any;
   disabledSalidaFichaje = false;
@@ -39,18 +41,25 @@ export class AnadirFichejesComponent {
       lat: 0,
       lng: 0,
     },
+    project: '',
   };
+  opcionSeleccionada = '';
+  opciones: any[] = [];
 
-  constructor(private fichajesService: FichajesService) {}
+  constructor(
+    private fichajesService: FichajesService,
+    private projectsService: ProjectsService
+  ) {}
 
   ngOnInit() {
     this.actualizarReloj();
     this.intervalId = setInterval(() => this.actualizarReloj(), 1000);
     const usuario = JSON.parse(localStorage.getItem('user') || '{}');
     this.user = usuario.data.user;
-    this.tienda = usuario.data.tienda;
+    this.departamento = usuario.data.departamento;
     this.idUsuario = usuario.data.idUsuario;
     this.obtenerFichajesByUserAndDay();
+    this.obtenerProjects();
   }
 
   ngOnDestroy() {
@@ -71,6 +80,8 @@ export class AnadirFichejesComponent {
         this.registro.entrada.hora = this.horaEntrada;
         this.registro.entrada.lat = ubicacion.lat;
         this.registro.entrada.lng = ubicacion.lng;
+        this.registro.project = this.opcionSeleccionada;
+        debugger;
         this.fichajesService
           .setFichajeEntrada(this.registro)
           .subscribe((response) => {
@@ -187,4 +198,17 @@ export class AnadirFichejesComponent {
       }
     );
 }
+
+obtenerProjects() {
+  this.projectsService.getProjects().subscribe(
+    (response) => {
+      this.opciones = response;
+      console.log('Proyectos obtenidos:', this.opciones);
+    },
+    (error) => {
+      console.error('Error al obtener los proyectos:', error);
+    }
+  );
+}
+
 }

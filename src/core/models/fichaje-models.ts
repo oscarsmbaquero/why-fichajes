@@ -11,4 +11,5 @@
     lat: number;
     lng: number;
   };
+  project: string;
 }

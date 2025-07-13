@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body text-center">
           <h3 class="mb-4">{{ user }}</h3>
-          <h4>{{ tienda }}</h4>
+          <h4 style="color: brown">{{ departamento }}</h4>
           <h6>{{ relojCard }}</h6>
           <div class="clock">
             <div class="hand hour" [style.transform]="hourTransform"></div>
@@ -16,37 +16,65 @@
             <div class="number number-6">6</div>
             <div class="number number-9">9</div>
           </div>
-          <div class="d-grid gap-4">
-            @if(fichajeRegistradoOk){<p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">REGISTRADO OK</p-message>}
-            @if(!existeFichajeHoy){
-            <p-button
-              label="Fichar entrada"
-              severity="success"
-              (click)="ficharEntrada()"
-            ></p-button>
-            } @if (existeFichajeHoy) {
-              <p-button
-              [disabled]="true"
-              label="Hora entrada: {{horaEntrada}}"
-              severity="success"
-              (click)="ficharEntrada()"
-            ></p-button>
+          <div class="gap-4">
+            <div class="form-group text-center">
+              <div class="form-group">
+                <select
+                  id="miSelect"
+                  class="form-control input"
+                  [(ngModel)]="opcionSeleccionada"
+                  name="miSelect"
+                >
+                  <!-- Placeholder -->
+                  <option value="" disabled selected>
+                    -- Selecciona un proyecto --
+                  </option>
 
-            <!-- <p class="text-muted">
+                  <!-- Opciones dinámicas -->
+                  @for (opcion of opciones; track opcion._id) {
+                  <option [value]="opcion._id">{{ opcion.nombre }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+            <div class="d-grid gap-4">
+              @if(fichajeRegistradoOk){<p-message
+                severity="success"
+                icon="pi pi-times-circle"
+                styleClass="mb-2"
+                >REGISTRADO OK</p-message
+              >} @if(!existeFichajeHoy){
+              <p-button
+                label="Fichar entrada"
+                severity="success"
+                (click)="ficharEntrada()"
+              ></p-button>
+              } @if (existeFichajeHoy) {
+              <p-button
+                [disabled]="true"
+                label="Hora entrada: {{ horaEntrada }}"
+                severity="success"
+                (click)="ficharEntrada()"
+              ></p-button>
+
+              <!-- <p class="text-muted">
               Hora de entrada: <strong>{{ horaEntrada }}</strong>
             </p> -->
-            }
-            <p-button
-              [disabled]="disabledSalidaFichaje"              
-              [label]="horaSalida ? 'Hora de salida: ' + horaSalida : 'Fichar salida'"
-              severity="info"
-              (click)="ficharSalida()"
-            ></p-button>
-            <!-- @if (horaSalida) {
+              }
+              <p-button
+                [disabled]="disabledSalidaFichaje"
+                [label]="
+                  horaSalida ? 'Hora de salida: ' + horaSalida : 'Fichar salida'
+                "
+                severity="info"
+                (click)="ficharSalida()"
+              ></p-button>
+              <!-- @if (horaSalida) {
             <p class="text-muted">
               Hora de salida: <strong>{{ horaSalida }}</strong>
             </p>
             } -->
+            </div>
           </div>
         </div>
       </div>
