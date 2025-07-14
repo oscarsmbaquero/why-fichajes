@@ -44,6 +44,7 @@
                     <th>Hora Salida</th>
                     <th>Horas</th>
                     <th>Ubicación</th>
+                    <th>Proyecto</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,6 +68,7 @@
                         <img  (click)="mostrarLocalidad(registro, 'salida')" src="../../../../assets/images/ubicacion.jpg" width="35px"/>
                       }
                     </td>
+                   <td>{{registro.project.nombre}}</td> 
                   </tr>
                   }
                 </tbody>
