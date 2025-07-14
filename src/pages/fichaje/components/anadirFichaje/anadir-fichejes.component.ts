@@ -172,13 +172,9 @@ export class AnadirFichejesComponent {
     this.fichajesService.getFichajesByUserAndDay(this.idUsuario, new Date().toISOString().split('T')[0]).subscribe(
       (response: any[]) => {
         this.existeFichajeHoy = response.length > 0;
-        if (this.existeFichajeHoy) {
-          console.log('hay fichaje hoy', response);
-          
+        if (this.existeFichajeHoy) {          
           const horaFichajeEntrada = response[0].entrada.hora;
-          this.horaEntrada = horaFichajeEntrada;
-          console.log(this.horaEntrada);
-          
+          this.horaEntrada = horaFichajeEntrada;          
           this.disabledSalidaFichaje = false
           const horaFichajeSalida = response[0].salida.hora;
           if (horaFichajeSalida) {
