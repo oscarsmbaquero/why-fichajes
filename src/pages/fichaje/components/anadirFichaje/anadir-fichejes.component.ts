@@ -172,7 +172,6 @@ export class AnadirFichejesComponent {
     this.fichajesService.getFichajesByUserAndDay(this.idUsuario, new Date().toISOString().split('T')[0]).subscribe(
       (response: any[]) => {
         this.existeFichajeHoy = response.length > 0;
-        debugger;
         if (this.existeFichajeHoy) {          
           const horaFichajeEntrada = response[0].entrada.hora;
           this.horaEntrada = horaFichajeEntrada;          
