@@ -81,7 +81,7 @@ export class AnadirFichejesComponent {
         this.registro.entrada.lat = ubicacion.lat;
         this.registro.entrada.lng = ubicacion.lng;
         this.registro.project = this.opcionSeleccionada;
-        debugger;
+
         this.fichajesService
           .setFichajeEntrada(this.registro)
           .subscribe((response) => {
@@ -89,15 +89,15 @@ export class AnadirFichejesComponent {
             this.fichajeRegistradoOk = true;
             setTimeout(() => {
               this.fichajeRegistradoOk = false;
+              this.obtenerFichajesByUserAndDay();        
             }, 2500);
           });
       })
       .catch((error) => {
         console.error('Error al obtener la ubicación para entrada:', error);
       });
-      setTimeout(() => {
-        this.obtenerFichajesByUserAndDay();        
-      }, 2500);
+      // setTimeout(() => {
+      // }, 2500);
   }
 
   ficharSalida(): void {
@@ -115,17 +115,17 @@ export class AnadirFichejesComponent {
             console.log('Fichaje de salida registrado:', response);
           });
         this.fichajeRegistradoOk = true;
-        this.disabledSalidaFichaje = true
+        //this.disabledSalidaFichaje = true
         setTimeout(() => {
-            this.fichajeRegistradoOk = false;
+          this.fichajeRegistradoOk = false;
+          this.obtenerFichajesByUserAndDay();          
           }, 2500);
         })
         .catch((error) => {
           console.error('Error al obtener la ubicación para entrada:', error);
         });
-        setTimeout(() => {
-          this.obtenerFichajesByUserAndDay();          
-        }, 2500);
+        // setTimeout(() => {
+        // }, 2500);
       }
 
   private actualizarReloj(): void {
@@ -172,6 +172,7 @@ export class AnadirFichejesComponent {
     this.fichajesService.getFichajesByUserAndDay(this.idUsuario, new Date().toISOString().split('T')[0]).subscribe(
       (response: any[]) => {
         this.existeFichajeHoy = response.length > 0;
+        debugger;
         if (this.existeFichajeHoy) {          
           const horaFichajeEntrada = response[0].entrada.hora;
           this.horaEntrada = horaFichajeEntrada;          

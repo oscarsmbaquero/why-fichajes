@@ -12,6 +12,7 @@
               <!-- <th>Ubicación</th> -->
               <th>Hora Salida</th>
               <th>Horas</th>
+              <th>Proyecto</th>
               <!-- <th>Ubicación</th> -->
             </tr>
           </thead>
@@ -24,6 +25,7 @@
                 <td>{{ registro.salida.hora }}</td>
                 <td>{{ registro.tiempoTrabajado }}</td>
                 <!-- <td>{{ registro.localidadSalida || '...' }}</td> -->
+                <td>{{ registro.project.nombre }}</td>
               </tr>
             }
           </tbody>

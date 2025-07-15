@@ -46,6 +46,7 @@
                 >REGISTRADO OK</p-message
               >} @if(!existeFichajeHoy){
               <p-button
+                [disabled]="!opcionSeleccionada"
                 label="Fichar entrada"
                 severity="success"
                 (click)="ficharEntrada()"

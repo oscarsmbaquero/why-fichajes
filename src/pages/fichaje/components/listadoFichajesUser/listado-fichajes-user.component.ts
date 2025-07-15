@@ -32,7 +32,7 @@ export class ListadoFichajesUserComponent implements OnInit {
         this.fichajes = response;
         if(this.fichajes)
          this.fichajes = this.calcularTiempoTrabajado(this.fichajes);
-        //console.log(this.fichajes);
+        console.log(this.fichajes);
         
         //TODO CALCULAR LA LOCALZACION
         // this.fichajes.forEach((fichaje, index) => {
