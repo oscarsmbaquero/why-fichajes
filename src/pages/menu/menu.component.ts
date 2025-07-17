@@ -32,16 +32,16 @@ export class MenuComponent {
     {
       id:3,
       imageUrl:
-        'https://res.cloudinary.com/dcfk8yjwr/image/upload/v1742489553/abogado_hkxqwk.jpg',
-      description: 'Abogado',
-      link: ['/chat', 'abogado'],
+        'https://res.cloudinary.com/dcfk8yjwr/image/upload/v1752767551/projects_zvknbx.png',
+      description: 'Proyectos',
+      link: ['/projects'],
       badge: true,
-      disabled : true
+      disabled : false
     },
     {
       id:4,
       imageUrl:
-        'https://res.cloudinary.com/dcfk8yjwr/image/upload/v1742489553/tecnico_d99vup.jpg',
+        'https://res.cloudinary.com/dcfk8yjwr/image/upload/v1752767551/projects_zvknbx.png',
       description: 'Técnico',
       link: ['/chat', 'tecnico'],
       badge: true,
