@@ -6,7 +6,7 @@
     lat: number;
     lng: number;
   };
-  salida: {
+  salida?: {
     hora: string;     
     lat: number;
     lng: number;
