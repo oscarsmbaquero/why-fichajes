@@ -24,9 +24,11 @@
       </div>
     </div>
   </div>
+  @if(loading){
+    <app-loading></app-loading>
 
-  <!-- Aquí puedes mostrar la tabla si hay opción seleccionada -->
-  @if(opcionSeleccionada){
+  }@else{
+ @if(opcionSeleccionada){
   <div class="row justify-content-center mt-4">
     <div class="col-12 col-md-10">
       <div class="container my-4">
@@ -80,4 +82,6 @@
     </div>
   </div>
   }
+  }
+ 
 </div>

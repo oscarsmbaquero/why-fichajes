@@ -1,4 +1,7 @@
-<div class="container my-4">
+@if(loading){
+<app-loading></app-loading>
+}@else {
+  <div class="container my-4">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10">
         <h3>{{user}}</h3>
@@ -8,9 +11,9 @@
           <thead class="table-light">
             <tr>
               <th>Día</th>
-              <th>Hora Entrada</th>
+              <th>Entrada</th>
               <!-- <th>Ubicación</th> -->
-              <th>Hora Salida</th>
+              <th>Salida</th>
               <th>Horas</th>
               <th>Proyecto</th>
               <!-- <th>Ubicación</th> -->
@@ -34,3 +37,5 @@
     </div>
   </div>
 </div>
+}
+

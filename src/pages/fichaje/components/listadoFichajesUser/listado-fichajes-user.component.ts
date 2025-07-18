@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FichajesService } from '../../../../core/services/fichajes/fichajes.service';
-import { GeolocationService } from '../../../../core/services/GeolocationService/geolocation.service';
+// import { GeolocationService } from '../../../../core/services/GeolocationService/geolocation.service';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-listado-fichajes-user',
   standalone: true,
-  imports: [],
+  imports: [LoadingComponent],
   templateUrl: './listado-fichajes-user.component.html',
   styleUrl: './listado-fichajes-user.component.css',
 })
@@ -15,6 +16,7 @@ export class ListadoFichajesUserComponent implements OnInit {
   idUsuario!: number;
   fichajes: any[] = [];
   direccion: string | null = null;
+  loading = false;
 
   constructor(
     private fichajesService: FichajesService,
@@ -22,6 +24,7 @@ export class ListadoFichajesUserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     const usuario = JSON.parse(localStorage.getItem('user') || '{}');
     this.user = usuario.data.user;
     this.tienda = usuario.data.tienda;
@@ -54,6 +57,7 @@ export class ListadoFichajesUserComponent implements OnInit {
         console.error('Error al obtener los fichajes:', error);
       }
     );
+    this.loading = false;
   }
 
 //  calcularTiempoTrabajado(fichajes: any[]) {

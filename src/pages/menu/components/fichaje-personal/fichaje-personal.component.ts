@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FichajesService } from '../../../../core/services/fichajes/fichajes.service';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../../../core/services/users/users.service';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 //primeng
 import { SelectModule } from 'primeng/select';
 import { GeolocationService } from '../../../../core/services/GeolocationService/geolocation.service';
@@ -9,7 +10,7 @@ import { GeolocationService } from '../../../../core/services/GeolocationService
 @Component({
   selector: 'app-fichaje-personal',
   standalone: true,
-  imports: [FormsModule, SelectModule],
+  imports: [FormsModule, SelectModule, LoadingComponent],
   templateUrl: './fichaje-personal.component.html',
   styleUrl: './fichaje-personal.component.css',
 })
@@ -18,6 +19,7 @@ export class FichajePersonalComponent {
   userService = inject(UsersService);
   opciones: any;
   registros: any;
+  loading = false;
 
   opcionSeleccionada: string = '';
 
@@ -25,9 +27,7 @@ export class FichajePersonalComponent {
 
   ngOnInit() {
     this.userService.getUsers().subscribe((element) => {
-      console.log(element);
-      this.opciones = element;
-      console.log(this.opciones.idUsuario);
+    this.opciones = element;
     });
   }
 
@@ -38,12 +38,12 @@ export class FichajePersonalComponent {
     const usuario = this.opciones.find(
       (op: { idUsuario: string }) => op.idUsuario == idSeleccionado
     );
+    this.loading = true;
     this.fichajesService
       .getFichajesByUser(usuario.idUsuario)
       .subscribe((element) => {
         this.registros = element;
         this.registros = this.calcularTiempoTrabajado(this.registros);
-        console.log(element);
       });
   }
 
@@ -81,10 +81,11 @@ export class FichajePersonalComponent {
         const tiempoTrabajado = `${horas.toString().padStart(2, '0')}:${minutos
           .toString()
           .padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-
+        this.loading = false;
         return { ...fichaje, tiempoTrabajado };
       }
 
+      this.loading = false;
       return { ...fichaje, tiempoTrabajado: null };
     });
   }
