@@ -56,7 +56,44 @@ export class ListadoFichajesUserComponent implements OnInit {
     );
   }
 
- calcularTiempoTrabajado(fichajes: any[]) {
+//  calcularTiempoTrabajado(fichajes: any[]) {
+//   const formatoHora = (hora: string): string => {
+//     if (!hora) return '00:00:00';
+//     const [h = '00', m = '00', s = '00'] = hora.split(':');
+//     return `${h.padStart(2, '0')}:${m.padStart(2, '0')}:${s.padStart(2, '0')}`;
+//   };
+
+//   return fichajes.map(fichaje => {
+//     const entradaHora = formatoHora(fichaje.entrada?.hora);
+//     const salidaHora = formatoHora(fichaje.salida?.hora);
+
+//     if (entradaHora && salidaHora) {
+//       const fecha = '1970-01-01';
+//       const entrada = new Date(`${fecha}T${entradaHora}`);
+//       const salida = new Date(`${fecha}T${salidaHora}`);
+
+//       if (isNaN(entrada.getTime()) || isNaN(salida.getTime())) {
+//         return { ...fichaje, tiempoTrabajado: null };
+//       }
+
+//       const diffMs = salida.getTime() - entrada.getTime();
+//       const totalSegundos = Math.floor(diffMs / 1000);
+
+//       const horas = Math.floor(totalSegundos / 3600);
+//       const minutos = Math.floor((totalSegundos % 3600) / 60);
+//       const segundos = totalSegundos % 60;
+
+//       const tiempoTrabajado = `${horas.toString().padStart(2, '0')}:${minutos
+//         .toString()
+//         .padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+
+//       return { ...fichaje, tiempoTrabajado };
+//     }
+
+//     return { ...fichaje, tiempoTrabajado: null };
+//   });
+// }
+calcularTiempoTrabajado(fichajes: any[]) {
   const formatoHora = (hora: string): string => {
     if (!hora) return '00:00:00';
     const [h = '00', m = '00', s = '00'] = hora.split(':');
@@ -73,7 +110,7 @@ export class ListadoFichajesUserComponent implements OnInit {
       const salida = new Date(`${fecha}T${salidaHora}`);
 
       if (isNaN(entrada.getTime()) || isNaN(salida.getTime())) {
-        return { ...fichaje, tiempoTrabajado: null };
+        return { ...fichaje, tiempoTrabajado: null, horasDecimal: null };
       }
 
       const diffMs = salida.getTime() - entrada.getTime();
@@ -87,11 +124,15 @@ export class ListadoFichajesUserComponent implements OnInit {
         .toString()
         .padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
 
-      return { ...fichaje, tiempoTrabajado };
+      // Calcular horas decimales
+      const horasDecimal = horas + minutos / 60 + segundos / 3600;
+
+      return { ...fichaje, tiempoTrabajado, horasDecimal };
     }
 
-    return { ...fichaje, tiempoTrabajado: null };
+    return { ...fichaje, tiempoTrabajado: null, horasDecimal: null };
   });
 }
+
 
 }

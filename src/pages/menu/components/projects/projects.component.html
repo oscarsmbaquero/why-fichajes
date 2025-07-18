@@ -7,23 +7,20 @@
       >
         <thead class="table-light">
           <tr>
-            <th>Nº</th>
             <th>Nombre</th>
             <!-- <th>Ubicación</th> -->
-            <th>Departamento</th>
-            <th>Mail</th>
+            <th>Descripción</th>
+            <th>Horas</th>
             <!-- <th>Ubicación</th> -->
           </tr>
         </thead>
         <tbody>
-          @for (user of usuarios; track user._id) {
+          @for (user of projects; track user._id) {
           <tr>
-            <td>{{ user.idUsuario }}</td>
-            <td>{{ user.user }}</td>
-            <!-- <td>{{ registro.localidadEntrada || 'Cargando...' }}</td> -->
-            <td>{{ user.departamento }}</td>
-            <td>{{ user.mail }}</td>
-            <!-- <td>{{ registro.localidadSalida || '...' }}</td> -->
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.descripcion }}</td>
+            <td>{{ user.horas }}</td>
+            <!-- <td>{{ user.hours }}</td> -->
           </tr>
           }
         </tbody>

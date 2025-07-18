@@ -5,6 +5,7 @@ import { MenuComponent } from '../pages/menu/menu.component';
 import { FichajePersonalComponent } from '../pages/menu/components/fichaje-personal/fichaje-personal.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { ListadoUsuariosComponent } from '../pages/menu/components/listado-usuarios/listado-usuarios.component';
+import { ProjectsComponent } from '../pages/menu/components/projects/projects.component';
 
 export const routes: Routes = [
   {
@@ -30,10 +31,15 @@ export const routes: Routes = [
     pathMatch: 'full',//coincida nombre exacto
     component: FichajePersonalComponent
   },
-   {
+  {
     path: "listado-usuarios",//raiz de la app
     pathMatch: 'full',//coincida nombre exacto
     component: ListadoUsuariosComponent
+  },
+  {
+    path: "projects",//raiz de la app
+    pathMatch: 'full',//coincida nombre exacto
+    component: ProjectsComponent
   },
   {
     path: "",//raiz de la app

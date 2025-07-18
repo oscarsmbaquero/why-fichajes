@@ -59,7 +59,7 @@
                       <img  (click)="mostrarLocalidad(registro, 'entrada')"  src="../../../../assets/images/ubicacion.jpg" width="35px"/>
                       }
                     </td>
-                    <td>{{ registro.salida.hora }}</td>
+                    <td>{{ registro.salida?.hora || '--' }}</td>
                     <td>{{ registro.tiempoTrabajado }}</td>
                      <td>
                       @if (registro.localidadSalidaVisible) {
