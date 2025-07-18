@@ -15,9 +15,7 @@ export class FichajesService {
     return this.http.post(`${environment.apiUrl}fichajes`, registro);
   }
 
-    setFichajeSalida(registro: any): Observable<any> {
-      console.log(registro);
-      
+    setFichajeSalida(registro: any): Observable<any> {      
     return this.http.post(`${environment.apiUrl}fichajes/salida`, registro);
   }
 

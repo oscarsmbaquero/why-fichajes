@@ -22,7 +22,7 @@
                 <td>{{ registro.dia }}</td>
                 <td>{{ registro.entrada.hora }}</td>
                 <!-- <td>{{ registro.localidadEntrada || 'Cargando...' }}</td> -->
-                <td>{{ registro.salida.hora }}</td>
+                <td>{{ registro.salida?.hora || '--' }}</td>
                 <td>{{ registro.tiempoTrabajado }}</td>
                 <!-- <td>{{ registro.localidadSalida || '...' }}</td> -->
                 <td>{{ registro.project.nombre }}</td>
