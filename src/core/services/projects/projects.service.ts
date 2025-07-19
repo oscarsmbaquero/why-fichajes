@@ -10,6 +10,18 @@ import { environment } from '../../../enviroment/environment';
 export class ProjectsService {
 
   constructor(private httpClient: HttpClient) { }
+  
+  addProject(project: any): Observable<any> {
+    const endpoint = `${environment.apiUrl}projects`;
+    return this.httpClient.post<any>(endpoint, project).pipe(
+      map(response => response),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al añadir el proyecto:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
 
    getProjects(): Observable<any[]> {
     const endpoint = `${environment.apiUrl}projects`;

@@ -51,3 +51,21 @@ h3, h5 {
   text-align: center;
   color: black;
 }
+
+/* estilos boton */
+.floating-button{
+    position: fixed; 
+    bottom: 125px; 
+    right: 15px; 
+    color: #fff; 
+    border: none;
+    border-radius: 50%; 
+    width: 80px; 
+    height: 30px; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    z-index: 1000; 
+  }
