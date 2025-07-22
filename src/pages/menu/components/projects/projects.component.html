@@ -18,7 +18,7 @@
             @for (user of projects; track user._id) {
             <tr (click)="toggleExpand(user._id)" style="cursor: pointer">
               <td>{{ user.nombre }}
-                @if(user.tareas.length > 0){
+                @if(user.tareas && user.tareas.length > 0){
                   <span class="badge bg-info" style="color: black;">{{ user.tareas.length }} Tareas</span>
                 }
 
