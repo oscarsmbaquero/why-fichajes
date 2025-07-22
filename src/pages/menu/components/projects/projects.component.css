@@ -35,7 +35,7 @@ th:nth-child(1),
 th:nth-child(2),
 th:nth-child(3),
 th:nth-child(4){
-  background-color: #40E0D0
+  background-color: #0dcaf0;
 }
 
 
@@ -68,4 +68,7 @@ h3, h5 {
     justify-content: center;
     background-color: transparent;
     z-index: 1000; 
+  }
+  .table-secondary{
+    background-color: white !important;
   }

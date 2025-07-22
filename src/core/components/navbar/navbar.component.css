@@ -25,7 +25,7 @@ span, h1, a {
   .selected span {
     /* color: blue; */
     font-weight: bold;
-      color:#40E0D0;
+      color:#0dcaf0;
     /* O cualquier estilo de subrayado deseado */
   }
   
@@ -62,7 +62,7 @@ span, h1, a {
   
   .line {
     fill: none;
-    stroke: #40E0D0;
+    stroke: #0dcaf0;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 3;
@@ -80,7 +80,7 @@ span, h1, a {
     .selected span {
       /* color: blue; */
       font-weight: bold;
-      color:#40E0D0;
+      color:#0dcaf0;
       /* O cualquier estilo de subrayado deseado */
     }
     .dropdown-divider {

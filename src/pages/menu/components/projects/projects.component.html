@@ -16,26 +16,49 @@
           </thead>
           <tbody>
             @for (user of projects; track user._id) {
-            <tr>
-              <td>{{ user.nombre }}</td>
+            <tr (click)="toggleExpand(user._id)" style="cursor: pointer">
+              <td>{{ user.nombre }}
+                @if(user.tareas.length > 0){
+                  <span class="badge bg-info" style="color: black;">{{ user.tareas.length }} Tareas</span>
+                }
+
+              </td>
               <td>{{ user.descripcion }}</td>
               <td>{{ user.horas }}</td>
               <!-- <td>{{ user.hours }}</td> -->
             </tr>
-            }
+            @if (expandedIndex === user._id) { @for (item of user.tareas; track
+            $index) {
+            <tr>
+              <td colspan="3" style="background-color: white !important">
+                <div class="row">
+                  <div class="col">
+                    <span><b></b> {{ item.nombre }}</span
+                    ><br />
+                  </div>
+                  <div class="col">
+                    <span><b></b> {{ item.horas }}h.</span><br />
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            } } }
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
-<button (click)="visible = true" class="floating-button"><img src="../../../../assets/images/agregar.png" width="50px" /></button>
+<button (click)="visible = true" class="floating-button">
+  <img src="../../../../assets/images/agregar.png" width="50px" />
+</button>
 <p-dialog
   header="Añadir Proyecto"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '30rem' }"
-  [contentStyle]="{ 'padding': '2rem' }"
+  [contentStyle]="{ padding: '2rem' }"
 >
   <form
     [formGroup]="projectForm"
@@ -65,11 +88,16 @@
     </div>
 
     <div class="d-flex justify-content-center gap-2 w-100">
-      <button type="button" class="btn btn-secondary" (click)="visible = false">Cancelar</button>
-      <button type="submit" class="btn btn-primary" [disabled]="projectForm.invalid">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="visible = false">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="projectForm.invalid"
+      >
+        Guardar
+      </button>
     </div>
   </form>
 </p-dialog>
-
-
-

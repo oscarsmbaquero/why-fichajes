@@ -28,6 +28,8 @@ export class AnadirFichejesComponent {
   relojCard: any;
   disabledSalidaFichaje = false;
   fichajeSalidaOk = false;
+  tareasSeleccionadas: any[] = [];
+  tareaSeleccionadaId: string = '';
   registro: FichajeDiario = {
     idUsuario: 0,
     dia: '',
@@ -45,6 +47,7 @@ export class AnadirFichejesComponent {
   };
   opcionSeleccionada = '';
   opciones: any[] = [];
+  isTareas = false;
 
   constructor(
     private fichajesService: FichajesService,
@@ -72,57 +75,58 @@ export class AnadirFichejesComponent {
   }
 
   ficharEntrada(): void {
-  this.obtenerUbicacion().then((ubicacion) => {
-    this.horaEntrada = this.obtenerHoraActual();
-    this.registro = {
-      idUsuario: this.idUsuario,
-      dia: this.relojCard.split(' ')[0],
-      entrada: {
-        hora: this.horaEntrada,
-        lat: ubicacion.lat,
-        lng: ubicacion.lng
-      },
-      project: this.opcionSeleccionada
-    };
+    this.obtenerUbicacion().then((ubicacion) => {
+      this.horaEntrada = this.obtenerHoraActual();
+      this.registro = {
+        idUsuario: this.idUsuario,
+        dia: this.relojCard.split(' ')[0],
+        entrada: {
+          hora: this.horaEntrada,
+          lat: ubicacion.lat,
+          lng: ubicacion.lng,
+        },
+        project: this.opcionSeleccionada,
+        tarea: this.tareaSeleccionadaId,
+      };
 
-    this.fichajesService.setFichajeEntrada(this.registro).subscribe((response) => {
-      console.log('Fichaje de entrada registrado:', response);
-      this.fichajeRegistradoOk = true;
-      setTimeout(() => {
-        this.fichajeRegistradoOk = false;
-        this.obtenerFichajesByUserAndDay();
-      }, 2500);
+      this.fichajesService
+        .setFichajeEntrada(this.registro)
+        .subscribe((response) => {
+          this.fichajeRegistradoOk = true;
+          setTimeout(() => {
+            this.fichajeRegistradoOk = false;
+            this.obtenerFichajesByUserAndDay();
+          }, 2500);
+        });
     });
-  });
-}
+  }
 
   ficharSalida(): void {
-  this.obtenerUbicacion().then((ubicacion) => {
-    this.horaEntrada = this.obtenerHoraActual();
-    const salida = {
-      hora: this.horaEntrada,
-      lat: ubicacion.lat,
-      lng: ubicacion.lng
-    };
+    this.obtenerUbicacion().then((ubicacion) => {
+      this.horaEntrada = this.obtenerHoraActual();
+      const salida = {
+        hora: this.horaEntrada,
+        lat: ubicacion.lat,
+        lng: ubicacion.lng,
+      };
 
-    const payload = {
-      idUsuario: this.idUsuario,
-      dia: this.relojCard.split(' ')[0],
-      salida,
-      project: this.opcionSeleccionada
-    };
+      const payload = {
+        idUsuario: this.idUsuario,
+        dia: this.relojCard.split(' ')[0],
+        salida,
+        project: this.opcionSeleccionada,
+      };
 
-    this.fichajesService.setFichajeSalida(payload).subscribe((response) => {
-      console.log('Fichaje de salida registrado:', response);
-      this.fichajeRegistradoOk = true;
-      setTimeout(() => {
-        this.fichajeRegistradoOk = false;
-        this.obtenerFichajesByUserAndDay();
-      }, 2500);
+      this.fichajesService.setFichajeSalida(payload).subscribe((response) => {
+        console.log('Fichaje de salida registrado:', response);
+        this.fichajeRegistradoOk = true;
+        setTimeout(() => {
+          this.fichajeRegistradoOk = false;
+          this.obtenerFichajesByUserAndDay();
+        }, 2500);
+      });
     });
-  });
-}
-
+  }
 
   private actualizarReloj(): void {
     const ahora = new Date();
@@ -162,59 +166,70 @@ export class AnadirFichejesComponent {
     });
   }
 
-obtenerFichajesByUserAndDay() {
-  const today = new Date().toISOString().split('T')[0];
+  obtenerFichajesByUserAndDay() {
+    const today = new Date().toISOString().split('T')[0];
 
-  this.fichajesService.getFichajesByUserAndDay(this.idUsuario, today).subscribe(
-    (response: any[]) => {
-      this.existeFichajeHoy = response.length > 0;
+    this.fichajesService
+      .getFichajesByUserAndDay(this.idUsuario, today)
+      .subscribe(
+        (response: any[]) => {
+          this.existeFichajeHoy = response.length > 0;
 
-      if (!this.existeFichajeHoy) {
-        this.horaEntrada = null;
-        this.horaSalida = null;
-        this.disabledSalidaFichaje = true;
-        return;
+          if (!this.existeFichajeHoy) {
+            this.horaEntrada = null;
+            this.horaSalida = null;
+            this.disabledSalidaFichaje = true;
+            return;
+          }
+
+          // Ordenar por hora de entrada descendente
+          const fichajesOrdenados = [...response].sort((a, b) => {
+            return (
+              new Date(b.entrada.hora).getTime() -
+              new Date(a.entrada.hora).getTime()
+            );
+          });
+          const fichajeAbierto = fichajesOrdenados.find((f) => !f.salida?.hora);
+
+          if (fichajeAbierto) {
+            // console.log('Entrada registrada, falta salida');
+            this.horaEntrada = fichajeAbierto.entrada?.hora || null;
+            this.horaSalida = null;
+            this.disabledSalidaFichaje = false;
+            this.fichajeSalidaOk = true;
+          } else {
+            // console.log('Todos los fichajes tienen salida');
+            this.horaEntrada = null;
+            this.horaSalida = null;
+            this.disabledSalidaFichaje = true;
+            this.fichajeSalidaOk = false;
+            this.existeFichajeHoy = false;
+          }
+        },
+        (error) => {
+          console.error('Error al obtener los fichajes:', error);
+        }
+      );
+  }
+
+  obtenerProjects() {
+    this.projectsService.getProjects().subscribe(
+      (response) => {
+        this.opciones = response;
+        console.log('Proyectos obtenidos:', this.opciones);
+      },
+      (error) => {
+        console.error('Error al obtener los proyectos:', error);
       }
+    );
+  }
 
-      // Ordenar por hora de entrada descendente
-      const fichajesOrdenados = [...response].sort((a, b) => {
-        return new Date(b.entrada.hora).getTime() - new Date(a.entrada.hora).getTime();
-      });
-      const fichajeAbierto = fichajesOrdenados.find(f => !f.salida?.hora);
+  onProyectoSeleccionado(id: string) {
 
-      if (fichajeAbierto) {
-        console.log('Entrada registrada, falta salida');
-        this.horaEntrada = fichajeAbierto.entrada?.hora || null;
-        this.horaSalida = null;
-        this.disabledSalidaFichaje = false;
-        this.fichajeSalidaOk = true;
-      } else {
-        console.log('Todos los fichajes tienen salida');
-        this.horaEntrada = null;
-        this.horaSalida = null;
-        this.disabledSalidaFichaje = true;
-        this.fichajeSalidaOk = false;
-        this.existeFichajeHoy = false;
-      }
-    },
-    (error) => {
-      console.error('Error al obtener los fichajes:', error);
+    const proyecto = this.opciones.find((p) => p._id === id);
+    if (proyecto) {
+      this.tareasSeleccionadas = proyecto?.tareas || [];
+      this.isTareas = this.tareasSeleccionadas.length > 0;
     }
-  );
-}
-
-
-
-obtenerProjects() {
-  this.projectsService.getProjects().subscribe(
-    (response) => {
-      this.opciones = response;
-      console.log('Proyectos obtenidos:', this.opciones);
-    },
-    (error) => {
-      console.error('Error al obtener los proyectos:', error);
-    }
-  );
-}
-
+  }
 }

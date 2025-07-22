@@ -12,4 +12,5 @@
     lng: number;
   };
   project: string;
+  tarea?: string;
 }

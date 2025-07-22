@@ -20,6 +20,7 @@ export class FichajePersonalComponent {
   opciones: any;
   registros: any;
   loading = false;
+  isData = false;
 
   opcionSeleccionada: string = '';
 
@@ -33,8 +34,6 @@ export class FichajePersonalComponent {
 
   onSelectChange(event: Event) {
     const idSeleccionado = (event.target as HTMLSelectElement).value;
-
-    // Si necesitas el objeto completo del usuario:
     const usuario = this.opciones.find(
       (op: { idUsuario: string }) => op.idUsuario == idSeleccionado
     );
@@ -43,8 +42,11 @@ export class FichajePersonalComponent {
       .getFichajesByUser(usuario.idUsuario)
       .subscribe((element) => {
         this.registros = element;
+        this.isData = this.registros.length > 0;        
+        
         this.registros = this.calcularTiempoTrabajado(this.registros);
       });
+      this.loading = false;
   }
 
   //TODO EXPORTAR A UTILS

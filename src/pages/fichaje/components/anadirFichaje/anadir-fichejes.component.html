@@ -24,6 +24,7 @@
                   id="miSelect"
                   class="form-control input"
                   [(ngModel)]="opcionSeleccionada"
+                   (ngModelChange)="onProyectoSeleccionado($event)"
                   name="miSelect"
                 >
                   <!-- Placeholder -->
@@ -38,6 +39,29 @@
                 </select>
               </div>
             </div>
+            @if(isTareas){
+              <div class="form-group text-center">
+              <div class="form-group">
+                <select
+                  id="miSelect"
+                  class="form-control input"
+                    [(ngModel)]="tareaSeleccionadaId"
+                  name="miSelect"
+                >
+                  
+                  <option value="" disabled selected>
+                    -- Selecciona una tarea --
+                  </option>
+
+                  
+                  @for (opcion of tareasSeleccionadas; track opcion._id) {
+                  <option [value]="opcion._id">{{ opcion.nombre }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+            }
+              
             <div class="d-grid gap-4">
               @if(fichajeRegistradoOk){<p-message
                 severity="success"

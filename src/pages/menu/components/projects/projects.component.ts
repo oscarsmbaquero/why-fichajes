@@ -16,7 +16,8 @@ export class ProjectsComponent implements OnInit {
 
   projects: any[] = [];
   visible = false;
-    projectForm: FormGroup;
+  projectForm: FormGroup;
+  expandedIndex: number | null = null;
 
   constructor(private projectsService: ProjectsService, private fb: FormBuilder) { 
     this.projectForm = this.fb.group({
@@ -52,4 +53,7 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  toggleExpand(index: number): void {
+  this.expandedIndex = this.expandedIndex === index ? null : index;
+}
 }

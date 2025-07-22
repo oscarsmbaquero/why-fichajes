@@ -1,6 +1,6 @@
 <div class="container-fluid mt-5">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-6 col-lg-4">
+    <div class="col-12 col-md-6 col-lg-3">
       <div class="form-group text-center">
         <div class="form-group">
           <select
@@ -25,10 +25,16 @@
     </div>
   </div>
   @if(loading){
-    <app-loading></app-loading>
-
-  }@else{
- @if(opcionSeleccionada){
+  <app-loading></app-loading>
+  }@else{ @if(opcionSeleccionada){ @if(!isData){
+  <div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="badge bg-info p-3 mt-4">
+        <h6 style="color: black">No hay registros disponibles para el usuario seleccionado.</h6>        
+      </div>
+    </div>
+  </div>
+  }@else {
   <div class="row justify-content-center mt-4">
     <div class="col-12 col-md-10">
       <div class="container my-4">
@@ -58,19 +64,27 @@
                       @if (registro.localidadEntradaVisible) {
                       {{ registro.localidadEntrada || "Cargando..." }}
                       } @else {
-                      <img  (click)="mostrarLocalidad(registro, 'entrada')"  src="../../../../assets/images/ubicacion.jpg" width="35px"/>
+                      <img
+                        (click)="mostrarLocalidad(registro, 'entrada')"
+                        src="../../../../assets/images/ubicacion.jpg"
+                        width="35px"
+                      />
                       }
                     </td>
-                    <td>{{ registro.salida?.hora || '--' }}</td>
+                    <td>{{ registro.salida?.hora || "--" }}</td>
                     <td>{{ registro.tiempoTrabajado }}</td>
-                     <td>
+                    <td>
                       @if (registro.localidadSalidaVisible) {
                       {{ registro.localidadSalida || "Cargando..." }}
                       } @else {
-                        <img  (click)="mostrarLocalidad(registro, 'salida')" src="../../../../assets/images/ubicacion.jpg" width="35px"/>
+                      <img
+                        (click)="mostrarLocalidad(registro, 'salida')"
+                        src="../../../../assets/images/ubicacion.jpg"
+                        width="35px"
+                      />
                       }
                     </td>
-                   <td>{{registro.project.nombre}}</td> 
+                    <td>{{ registro.project.nombre }}</td>
                   </tr>
                   }
                 </tbody>
@@ -81,7 +95,5 @@
       </div>
     </div>
   </div>
-  }
-  }
- 
+  } } }
 </div>

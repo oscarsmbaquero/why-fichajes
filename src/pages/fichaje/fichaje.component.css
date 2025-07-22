@@ -20,13 +20,13 @@
 }
 
 .tab-button.active {
-  color:  #40E0D0;
+  color:  #0dcaf0;
   font-weight: bold;
-  border-bottom: 3px solid   #40E0D0;
+  border-bottom: 3px solid   #0dcaf0;
 }
 
 .tab-button:hover {
-  color:  #40E0D0 ;
+  color:  #0dcaf0 ;
 }
 
 .tab-content {
