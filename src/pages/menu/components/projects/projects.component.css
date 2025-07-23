@@ -1,56 +1,4 @@
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
-
-thead {
-  background-color: #f0f0f0;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px 10px;
-  text-align: center;  
-    color: black ;
-}
-
-/* td:nth-child(1),
-td:nth-child(4) {
-  background-color: rgb(7, 146, 14);
-}
-
-td:nth-child(2) {
-  background-color: #4ade80; 
-}
-
-td:nth-child(3) {
-  background-color: #38bdf8; 
-} */
-
-
-th:nth-child(1),
-th:nth-child(2),
-th:nth-child(3),
-th:nth-child(4){
-  background-color: #0dcaf0;
-}
-
-
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tbody tr:hover {
-  background-color: #e0f7fa;
-}
-
-h3, h5 {
-  text-align: center;
-  color: black;
-}
 
 /* estilos boton */
 .floating-button{
@@ -78,12 +26,15 @@ h3, h5 {
   }
 
   .text-success {
-  background-color: rgb(0, 128, 90) !important;
-  color:white !important;
+  background-color: rgb(172, 236, 215) !important;
+  color:black !important;
   font-weight: bold;
 }
 
 .text-danger {
-  background-color: rgb(255, 0, 0) !important;
+  background-color: rgb(224, 156, 156) !important;
   color:white !important;
+}
+h6, h5, h2,p{
+   font-family: "Poppins", sans-serif;
 }

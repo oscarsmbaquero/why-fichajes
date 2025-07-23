@@ -1,93 +1,74 @@
 <div class="container-fluid my-4">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-10">
-      <div class="table-responsive">
-        <table
-          class="table table-bordered table-striped align-middle text-center"
-        >
-          <thead class="table-light">
-            <tr>
-              <th>Nombre</th>
-              <!-- <th>Ubicación</th> -->
-              <th>Descripción</th>
-              <th>Horas</th>
-              <!-- <th>Ubicación</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            @for (user of projects; track user._id) {
-            <tr (click)="toggleExpand(user._id)" style="cursor: pointer">
-              <td>
-                {{ user.nombre }}
-                @if(user.tareas && user.tareas.length > 0){
-                <span class="badge bg-info" style="color: black"
-                  >{{ user.tareas.length }} Tareas</span
-                >
-                }@else {
-                <span (click)="agregarTarea(user)" class="badge bg-secondary"
-                  >Añadir tareas</span
-                >
+    <div class="col-12 col-md-8">
+      <div class="row g-3">
+        <div class="col-12 text-center">
+          <h2>Lista de proyectos</h2>
+        </div>
+        @for (user of projects; track user._id) {
+        <div class="col-12">
+          <div class="card shadow-lg">
+            <div class="card-body" (click)="toggleExpand(user._id)" style="cursor: pointer;">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5 class="card-title mb-1">{{ user.nombre }}&nbsp;&nbsp;&nbsp;<img src="../../../../assets/images/hand.png" width="20px"/></h5>
+                  <p class="card-text">{{ user.descripcion }}</p>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-primary">{{ user.horas }} h</span><br />
+                  @if(user.tareas && user.tareas.length > 0){
+                    <span class="badge bg-info text-dark mt-2">{{ user.tareas.length }} Tareas</span>
+                  }<br/>
+                  <span class="badge bg-secondary mt-2" (click)="agregarTarea(user)">Añadir tareas</span>
+                </div>
+              </div>
+
+              <!-- Subtareas -->
+              @if (expandedIndex === user._id) {
+              <div class="mt-3 border-top pt-3">
+                <h6 class="text-muted mb-2">Subtareas</h6>
+                @if (user.tareas.length > 0) {
+                <div class="list-group">
+                  @for (item of user.tareas; track $index) {
+                  <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                      <strong>{{ item.nombre }}</strong>
+                      <div class="small text-muted">Estimación: {{ item.estimacion }} h</div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span
+                        class="badge"
+                        [ngClass]="{
+                          'bg-success': item.esVerde,
+                          'bg-danger': !item.esVerde
+                        }"
+                      >
+                        {{ item.horas }} h
+                      </span>
+                    </div>
+                  </div>
+                  }
+                </div>
+                }@else{
+                  <p class="text-muted">Sin tareas aún.</p>
                 }
-              </td>
-              <td>{{ user.descripcion }}</td>
-              <td>{{ user.horas }}</td>
-              <!-- <td>{{ user.hours }}</td> -->
-            </tr>
-            @if (expandedIndex === user._id) {
-            <tr>
-              <td
-                colspan="3"
-                style="
-                  background-color: white !important;
-                  padding: 0 !important;
-                "
-              >
-                <table style="width: 100%; border-collapse: collapse">
-                  <thead>
-                    <tr style="background-color: #f5f5f5">
-                      <th
-                        class="sub-table"
-                        style="padding: 0.5rem; text-align: center"
-                      >
-                        Nombre
-                      </th>
-                      <th
-                        class="sub-table"
-                        style="padding: 0.5rem; text-align: center"
-                      >
-                        Horas
-                      </th>
-                      <th
-                        class="sub-table"
-                        style="padding: 0.5rem; text-align: center"
-                      >
-                        Estimación
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for (item of user.tareas; track $index) {
-                    <tr [ngClass]="{ 'text-success': item.esVerde, 'text-danger': !item.esVerde }" style="padding: 0.5rem">
-                      <td style="padding: 0.5rem">{{ item.nombre }}</td>
-                      <td style="padding: 0.5rem">{{ item.horas }}h.</td>
-                      <td style="padding: 0.5rem">{{ item.estimacion }}h.</td>
-                    </tr>
-                    }
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            } }
-          </tbody>
-        </table>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        }
       </div>
     </div>
   </div>
 </div>
+
+<!-- Botón flotante -->
 <button (click)="visible = true" class="floating-button">
   <img src="../../../../assets/images/agregar.png" width="50px" />
 </button>
-<!-- Dialog para añadir proyectos -->
+
+<!-- Modal: Añadir Proyecto -->
 <p-dialog
   header="Añadir Proyecto"
   [modal]="true"
@@ -100,8 +81,6 @@
     (ngSubmit)="onSubmit()"
     class="d-flex flex-column align-items-center w-100"
   >
-    <!-- <span class="text-secondary text-center mb-4">Introduce los detalles del proyecto.</span> -->
-
     <div class="mb-3 w-100">
       <input
         type="text"
@@ -123,20 +102,13 @@
     </div>
 
     <div class="d-flex justify-content-center gap-2 w-100">
-      <button type="button" class="btn btn-secondary" (click)="visible = false">
-        Cancelar
-      </button>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="projectForm.invalid"
-      >
-        Guardar
-      </button>
+      <button type="button" class="btn btn-secondary" (click)="visible = false">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="projectForm.invalid">Guardar</button>
     </div>
   </form>
 </p-dialog>
-<!--añadir tareas-->
+
+<!-- Modal: Añadir Tarea -->
 <p-dialog
   header="{{
     projectSelected
@@ -153,8 +125,6 @@
     (ngSubmit)="onSubmitTarea()"
     class="d-flex flex-column align-items-center w-100"
   >
-    <!-- <span class="text-secondary text-center mb-4">Introduce los detalles del proyecto.</span> -->
-
     <div class="mb-3 w-100">
       <input
         type="text"
@@ -176,20 +146,8 @@
     </div>
 
     <div class="d-flex justify-content-center gap-2 w-100">
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="addTarea = false"
-      >
-        Cancelar
-      </button>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="tareaForm.invalid"
-      >
-        Guardar
-      </button>
+      <button type="button" class="btn btn-secondary" (click)="addTarea = false">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="tareaForm.invalid">Guardar</button>
     </div>
   </form>
 </p-dialog>
