@@ -167,10 +167,13 @@ export class AnadirFichejesComponent {
   }
 
   obtenerFichajesByUserAndDay() {
-    const today = new Date().toISOString().split('T')[0];
+    // const today = new Date().toISOString().split('T')[0];
+    const today = new Date();
+    const localDate = today.toLocaleDateString('en-CA'); // formato YYYY-MM-DD
+    
 
     this.fichajesService
-      .getFichajesByUserAndDay(this.idUsuario, today)
+      .getFichajesByUserAndDay(this.idUsuario, localDate)
       .subscribe(
         (response: any[]) => {
           this.existeFichajeHoy = response.length > 0;
