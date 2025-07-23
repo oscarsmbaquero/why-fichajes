@@ -32,4 +32,15 @@ export class ProjectsService {
       })
     );
   }
+
+  addTarea(idProject: string, tarea: any): Observable<any> {
+      const endpoint = `${environment.apiUrl}projects/${idProject}/tareas`;
+      return this.httpClient.post<any>(endpoint, tarea).pipe(
+        map(response => response),
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al añadir la tarea:', error);
+          return throwError(() => error);
+        })
+      );   
+  }
 }

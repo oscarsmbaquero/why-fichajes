@@ -45,7 +45,7 @@
                 <select
                   id="miSelect"
                   class="form-control input"
-                    [(ngModel)]="tareaSeleccionadaId"
+                  [(ngModel)]="tareaSeleccionadaId"
                   name="miSelect"
                 >
                   
@@ -53,7 +53,6 @@
                     -- Selecciona una tarea --
                   </option>
 
-                  
                   @for (opcion of tareasSeleccionadas; track opcion._id) {
                   <option [value]="opcion._id">{{ opcion.nombre }}</option>
                   }

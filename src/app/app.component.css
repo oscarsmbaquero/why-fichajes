@@ -24,7 +24,7 @@ html, body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.1; /* transparencia solo aquí */
+  opacity: 0.1; 
   z-index: 0;
   pointer-events: none;
 }
@@ -33,10 +33,7 @@ html, body {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: transparent; /* evitar fondo blanco */
-  /* o usa esta línea si quieres overlay oscuro */
-  /* background-color: rgba(0,0,0,0.3); */
-  opacity: 1; /* sin transparencia aquí */
+  background-color: transparent;
   z-index: 1;
   pointer-events: none;
 }

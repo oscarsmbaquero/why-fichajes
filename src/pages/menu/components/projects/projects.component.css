@@ -72,3 +72,18 @@ h3, h5 {
   .table-secondary{
     background-color: white !important;
   }
+
+  .sub-table{
+    background-color: rgb(191, 216, 212) !important;
+  }
+
+  .text-success {
+  background-color: rgb(0, 128, 90) !important;
+  color:white !important;
+  font-weight: bold;
+}
+
+.text-danger {
+  background-color: rgb(255, 0, 0) !important;
+  color:white !important;
+}
