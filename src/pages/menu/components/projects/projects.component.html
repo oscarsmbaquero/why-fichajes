@@ -15,7 +15,13 @@
             >
               <div class="d-flex justify-content-between align-items-start">
                 <div>
-                  <h5 class="card-title mb-1">{{ user.nombre }}</h5>
+                  <h5 class="card-title mb-1">{{ user.nombre }} <i
+          class="bi"
+          [ngClass]="{
+            'bi-caret-down-fill': expandedIndex !== user._id,
+            'bi-caret-up-fill': expandedIndex === user._id
+          }"
+        ></i></h5>
                   <span
                     class="badge bg-secondary mt-2"
                     (click)="agregarTarea(user)"
