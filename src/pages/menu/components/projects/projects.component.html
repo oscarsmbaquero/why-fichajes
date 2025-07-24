@@ -15,13 +15,16 @@
             >
               <div class="d-flex justify-content-between align-items-start">
                 <div>
-                  <h5 class="card-title mb-1">{{ user.nombre }} <i
-          class="bi"
-          [ngClass]="{
-            'bi-caret-down-fill': expandedIndex !== user._id,
-            'bi-caret-up-fill': expandedIndex === user._id
-          }"
-        ></i></h5>
+                  <h5 class="card-title mb-1">
+                    {{ user.nombre }}
+                    <i
+                      class="bi"
+                      [ngClass]="{
+                        'bi-caret-down-fill': expandedIndex !== user._id,
+                        'bi-caret-up-fill': expandedIndex === user._id
+                      }"
+                    ></i>
+                  </h5>
                   <span
                     class="badge bg-secondary mt-2"
                     (click)="agregarTarea(user)"
@@ -44,8 +47,10 @@
               <div class="mt-3 border-top pt-3">
                 <span class="text-muted mb-2">
                   <span>Descripcion: </span>
-                  <span class="card-text" style="font-weight: bold;">{{ user.descripcion }}</span>
-                </span><br/>
+                  <span class="card-text" style="font-weight: bold">{{
+                    user.descripcion
+                  }}</span> </span
+                ><br />
                 <span class="text-muted mb-2">Subtareas</span>
                 @if (user.tareas.length > 0) {
                 <div class="list-group">
@@ -126,12 +131,12 @@
     </div>
 
     <div class="d-flex justify-content-center gap-2 w-100">
-      <button type="button" class="btn btn-secondary" (click)="visible = false">
+      <button type="button" class="button-secondary" (click)="visible = false">
         Cancelar
       </button>
       <button
         type="submit"
-        class="btn btn-primary"
+        class="button"
         [disabled]="projectForm.invalid"
       >
         Guardar
@@ -180,14 +185,14 @@
     <div class="d-flex justify-content-center gap-2 w-100">
       <button
         type="button"
-        class="btn btn-secondary"
+        class="button-secondary"
         (click)="addTarea = false"
       >
         Cancelar
       </button>
       <button
         type="submit"
-        class="btn btn-primary"
+        class="button"
         [disabled]="tareaForm.invalid"
       >
         Guardar
