@@ -53,7 +53,6 @@ export class LoginComponent {
         (response) => {
           this.loginError = false;
           setTimeout(() => {
-            this.loading = false;
             this.router.navigate(['fichaje']);
           }, 1500);
         },

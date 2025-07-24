@@ -9,8 +9,8 @@ import { ProjectsComponent } from '../pages/menu/components/projects/projects.co
 
 export const routes: Routes = [
   {
-    path: "login",//raiz de la app
-    pathMatch: 'full',//coincida nombre exacto
+    path: "login",
+    pathMatch: 'full',
     component: LoginComponent
   },
   {
@@ -23,27 +23,30 @@ export const routes: Routes = [
     path: "menu",
     canActivate: [AuthGuard],
     data: { expectedRole: 'admin' },
-    pathMatch: 'full',//coincida nombre exacto
+    pathMatch: 'full',
     component: MenuComponent
   },
    {
-    path: "fichaje-personal",//raiz de la app
-    pathMatch: 'full',//coincida nombre exacto
+    path: "fichaje-personal",
+    canActivate: [AuthGuard],
+    pathMatch: 'full',
     component: FichajePersonalComponent
   },
   {
-    path: "listado-usuarios",//raiz de la app
-    pathMatch: 'full',//coincida nombre exacto
+    path: "listado-usuarios",
+    canActivate: [AuthGuard],
+    pathMatch: 'full',
     component: ListadoUsuariosComponent
   },
   {
-    path: "projects",//raiz de la app
-    pathMatch: 'full',//coincida nombre exacto
+    path: "projects",
+    canActivate: [AuthGuard],
+    pathMatch: 'full',
     component: ProjectsComponent
   },
   {
-    path: "",//raiz de la app
-    pathMatch: 'full',//coincida nombre exacto
+    path: "",
+    pathMatch: 'full',
     component: LoginComponent
   },
   {

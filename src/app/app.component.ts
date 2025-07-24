@@ -16,5 +16,5 @@ import { FooterComponent } from '../core/components/footer/footer.component';
   ]
 })
 export class AppComponent  {
-  title = 'little-details';
+  title = 'Why-fichaje';
 }
