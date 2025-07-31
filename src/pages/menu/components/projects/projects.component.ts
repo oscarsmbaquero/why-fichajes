@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { Proyecto } from '../../../../core/models/project-model';
 
 @Component({
   selector: 'app-projects',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ProjectsComponent implements OnInit {
 
-  projects: any[] = [];
+  projects: Proyecto[] = [];
   visible = false;
   projectForm: FormGroup;
   tareaForm: FormGroup;
